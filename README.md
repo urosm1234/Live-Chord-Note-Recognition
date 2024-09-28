@@ -15,6 +15,7 @@ This project draws inspiration and uses parts of code from the following project
 
 <h2>About</h2>
 The script extracts musical information from live auido (chords or up to two notes) and displays it at the end.
+The end goal is acurate live musical transcription, with the midi file output format.
 
 <h2>How to use</h2>
 
