@@ -1,1 +1,1 @@
-# Live-Chord-Note-Recognition
+# Live-Chord,Note-Recognition
