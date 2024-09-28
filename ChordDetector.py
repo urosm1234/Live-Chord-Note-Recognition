@@ -9,11 +9,11 @@ import sys, getopt
 import keyboard
 from math import floor
 
-NOTE_MIN = 48      #you can use the function note_name to find out which note this is (C3)
+NOTE_MIN = 48      #You can use the function note_name to find out which note this is (C3)
 NOTE_MAX = 107       
 FRAME_SIZE = 1048*2   
 FRAMES_PER_FFT = 8*2 #8 is best for single note detection
-FSAMP = FRAME_SIZE*FRAMES_PER_FFT*2 #improving SAMPLES_PER_FFT/FSAMP increases the resolution but lowering FSAMP reduces speed
+FSAMP = FRAME_SIZE*FRAMES_PER_FFT*2 #Improving SAMPLES_PER_FFT/FSAMP increases the resolution but lowering FSAMP reduces speed
 
 SAMPLES_PER_FFT = FRAME_SIZE*FRAMES_PER_FFT
 FREQ_STEP = float(FSAMP)/SAMPLES_PER_FFT
@@ -85,11 +85,11 @@ def  detect_chord(buf):
 
 
 def detect_note(buf, window):
-    #the function is more precise in detecting one note but can detect two sometimes
+    #The function is more precise in detecting one note
     fft = np.fft.fft(buf*window)
     fft = fft[:len(fft)//2+1]*2/11000
 
-    #slashing the higher freaquencies to avoid false posetives when detecting notes at lower ones
+    #Slashing the higher freaquencies to avoid false posetives when detecting notes at lower ones
     for i in range(imin, imax):
         if i*FREQ_STEP > 520:
             fft[i] /= (np.log10(i)*1.5)
@@ -100,7 +100,7 @@ def detect_note(buf, window):
     
     
     fftRange = fft[imin:imax]
-    #finding two highest amplitudes
+    #Finding two highest amplitudes
     freq = (np.abs(fftRange).argmax() + imin) * FREQ_STEP
     pom = np.append(fftRange[:int(freq/FREQ_STEP) - imin - 5], fftRange[int(freq/FREQ_STEP) - imin + 5:])
     freq1 = (np.abs(pom).argmax() + imin) * FREQ_STEP
@@ -125,7 +125,7 @@ def detect_note(buf, window):
     return "note1: " + note_name(n0) + " note2: " + note_name(n1)
 
 
-#main code
+#Main code
 def audio_transcription(argv):
     method = "chords"
     try:
@@ -165,6 +165,7 @@ def audio_transcription(argv):
 
     notes = []
     counter = 0
+    
     # Create Hanning window function if we are detecting notes
     if method == "notes":
         window = 0.5 * (1 - np.cos(np.linspace(0, 2*np.pi, SAMPLES_PER_FFT, False)))
