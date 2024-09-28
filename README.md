@@ -2,7 +2,7 @@
 
 <h2>Mentions</h2>
 
-This project draws inspiration and uses parts of code from following projects.
+This project draws inspiration and uses parts of code from the following projects.
 
 <ol>
 <li>
