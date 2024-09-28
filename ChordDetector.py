@@ -157,6 +157,7 @@ def audio_transcription(argv):
     stream.start_stream()
 
     print ('Stream open sampling at', FSAMP, 'Hz with max resolution of', FREQ_STEP, 'Hz')
+    print("Press and hold the 'f' key to end audio stream.")
 
     #Filters that might be useful
 
@@ -182,7 +183,7 @@ def audio_transcription(argv):
         if num_frames<= FRAMES_PER_FFT:
             num_frames += 1
 
-        #We check for peaks in the audio signal so we don't have to in the 
+        #We check for peaks in the audio signal so we don't have to compute FFT or QCT every frame
         if (note_detected == 0 and 20*np.log10(max(np.abs(buf[-FRAME_SIZE:]))) > 70) or counter != 0:
             note_detected = 1
             counter = counter + 1
