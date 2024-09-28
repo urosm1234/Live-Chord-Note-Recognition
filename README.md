@@ -14,14 +14,14 @@ This project draws inspiration and uses parts of code from the following project
 </ol>
 
 <h2>Description</h2>
-The script extracts musical information from live auido (chords or up to two notes) and displays it at the end.
+The script extracts musical information from live audio (chords or up to two notes) and displays it at the end.
 The end goal is acurate live musical transcription, with the midi file output format.
 
 Tested only with microphones.
 
 <h2>How to use</h2>
 
-First you need to run the setup.py file and install the C python extension as well as installing all other dependencies.
+First you need to run the setup.py file and install the C++ python extension as well as install all other dependencies.
 
 After that you need to run one of the following commands depending on the type of analysis you want.
 
