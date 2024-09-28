@@ -1,9 +1,3 @@
-"""
-Algorithm based on the paper 'Automatic Chord Recognition from
-Audio Using Enhanced Pitch Class Profile' by Kyogu Lee
-This script computes 12 dimensional chromagram for chord detection
-@author ORCHISAMA
-"""
 
 from __future__ import division
 from scipy.signal.windows import hamming, bartlett
@@ -30,8 +24,6 @@ def compute_PCP(x, fs, bins = 12, fmin = 96, fmax = 4000):
     display.specshow(amplitude_to_db(np.abs(cqt_fast), ref = np.max),  sr=fs, x_axis='time', y_axis='cqt_note', ax=ax)
     plt.show()"""
 
-    # get Pitch Class Profile
-    # 
     pcp = CQTransform.HPCP(np.absolute(cqt_fast), bins, nOctave)
     """plt.stem(range(len(CH)), CH)
     plt.show()"""
