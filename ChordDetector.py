@@ -14,6 +14,7 @@ NOTE_MAX = 107
 FRAME_SIZE = 1048*2   
 FRAMES_PER_FFT = 8*2 #8 is best for single note detection
 FSAMP = FRAME_SIZE*FRAMES_PER_FFT*2 #Improving SAMPLES_PER_FFT/FSAMP increases the resolution but lowering FSAMP reduces speed
+PEAK_THRESHOLD = 70 #Might have to change this value
 
 SAMPLES_PER_FFT = FRAME_SIZE*FRAMES_PER_FFT
 FREQ_STEP = float(FSAMP)/SAMPLES_PER_FFT
@@ -32,7 +33,7 @@ imax = min(SAMPLES_PER_FFT, int(np.ceil(note_to_fftbin(NOTE_MAX+1))))
 def get_templates(chords):
     #Change the number at the end of templates depending on what chords you want to load: templates- min,maj, templates1- min,maj,dim, templates2-min,maj,dim,7
     #You need to change the chords in the function get_nested_circle_of_fifths() to match the ones loaded in
-    with open("data/chord_templates2.json", "r") as fp:
+    with open("data/chord_templates1.json", "r") as fp:
         templates_json = json.load(fp)
     templates = []
 
@@ -47,13 +48,13 @@ def get_templates(chords):
 def get_nested_circle_of_fifths():
     chords = [
         "N",
-        #major:
+        #major: 
         "G","G#","A","A#","B","C","C#","D","D#","E","F","F#",
-        #minor:
+        #minor: 
         "Gm","G#m","Am","A#m","Bm","Cm","C#m","Dm","D#m","Em","Fm","F#m",
-        #dim:
+        #dim: 
         "Gdim","G#dim","Adim","A#dim","Bdim","Cdim","C#dim", "Ddim","D#dim","Edim","Fdim","F#dim"
-        #7:"
+        #7:" 
         #,"G7", "G#7", "A7", "A#7", "B7", "C7", "C#7", "D7", "D#7", "E7", "F7", "F#7"
     ]
     return chords
@@ -184,7 +185,7 @@ def audio_transcription(argv):
             num_frames += 1
 
         #We check for peaks in the audio signal so we don't have to compute FFT or QCT every frame
-        if (note_detected == 0 and 20*np.log10(max(np.abs(buf[-FRAME_SIZE:]))) > 70) or counter != 0:
+        if (note_detected == 0 and 20*np.log10(max(np.abs(buf[-FRAME_SIZE:]))) > PEAK_THRESHOLD) or counter != 0:
             note_detected = 1
             counter = counter + 1
             
