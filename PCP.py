@@ -11,7 +11,7 @@ import CQTransform
 def compute_PCP(x, fs, bins = 12, fmin = 96, fmax = 4000):
 
     nOctave = np.int32(np.ceil(np.log2(fmax / fmin)))
-    print("Number of octaves: " + str(nOctave))
+    #print("Number of octaves: " + str(nOctave))
     pcp = np.zeros(bins)
 
     #using librosas cqt for speed
